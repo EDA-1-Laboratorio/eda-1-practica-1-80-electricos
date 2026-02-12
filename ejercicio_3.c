@@ -27,7 +27,7 @@ void inicializarMundo() {
 void imprimirMundo() {
     // Limpia la consola
     // system("clear"); // O system("cls") en Windows
-    
+    system("clear");
     printf("\nEstado Actual:\n");
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -51,7 +51,19 @@ int contarVecinos(int f, int c) {
     //       ... si no es la propia celda (f,c) y está viva, vecinos++ ...
     //    }
     // }
-    
+    for(int i=f-1;i<=f+1;i++){
+        for(int j=c-1;j<=c+1;j++){
+            //limites
+            if(i>=0 && i<FILAS && j>=0 && j<COLS){
+                //no contar la celda (f,c)
+                if(!(i==f && j==c)){
+                    if(mundo[i][j]==1){//condicion para si la celda vive
+                        vecinos++;
+                    }
+                }
+            }
+        }
+    }
     return vecinos;
 }
 
@@ -74,7 +86,10 @@ void siguienteGeneracion() {
 
             } else {
                 // REGLA 4: Reproducción (exactamente 3 vecinos) -> Nace
-                
+                if(vecinos==3)
+                    siguiente_mundo[i][j]=1;
+                else
+                    siguiente_mundo[i][j]=0;
                 // TODO: Completar la lógica para células muertas
             }
         }
