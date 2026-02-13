@@ -133,7 +133,7 @@ void descifrarMensaje() {
         k++;
         } 
 }
-      texto[k]='\0';
+      
     printf("%s",texto);
 }
 
