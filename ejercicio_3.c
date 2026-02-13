@@ -104,16 +104,21 @@ void siguienteGeneracion() {
 }
 
 int main() {
-    inicializarMundo();
+    inicializarMundo(); d
     int iteraciones = 5; // O infinito while(1)
 
     for(int k=0; k<iteraciones; k++) {
         imprimirMundo();
         siguienteGeneracion();
-        // sleep(1); // Pausa para ver la animación
+        sleep(3); // Pausa para ver la animación
     }
 
     return 0;
 }
 
 // PREGUNTA: ¿Por qué es obligatoria la matriz siguiente_mundo? ¿Qué pasaría si actualizamos directamente sobre mundo?
+/*
+Esa matriz es obligatoria por que el juego de la vida requiere que todas las celdas se actualicen simultáneamente, el nuevo estado de cada celda depende del estado actual de sus vecinos en el tiempo (t), no
+de los cambios que ya se hayan hecho en otras celdas en el mismo turno. Si se actualiza directamente sobre el mundo, se mezclarian la generacion actual y la siguiente, lo que haria que el resultado dependa del
+orden en que se recorren las celdas, rompiendo las reglas del juego y haciendo que se comporte de manera extraña
+*/
