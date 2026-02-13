@@ -76,8 +76,8 @@ void crearMensaje() {
 
     // ... (Tu código aquí) ...
 
-    for(i=0; i<ren; i++){
-        for(j=0; j<col; j ++){
+    for(j=0; j<ren; j++){
+        for(i=0; i<col; i ++){
             printf("%c",escitala[i][j]);
         }
         printf("\n");
@@ -103,6 +103,7 @@ void descifrarMensaje() {
     // PASO 1: Reconstruir la matriz desde la tira cifrada
     // Recuerda: El texto cifrado viene en orden de columnas (vertical),
     // por lo tanto, debemos llenarlo en ese mismo orden.
+    
 
     /* TODO: Escribe aquí los bucles para llenar la matriz 'escitala'.
        Tip: El orden de los bucles 'for' es inverso al llenado del cifrado normal. 
@@ -110,6 +111,12 @@ void descifrarMensaje() {
 
     // ... (Tu código aquí) ...
 
+     for(j = 0; j < ren; j++){
+    for(i= 0; i < col; i++){
+        escitala[i][j] = texto[k];
+        k++;
+    }
+}
 
     printf("El texto descifrado es:\n");
 
@@ -119,8 +126,15 @@ void descifrarMensaje() {
     /* TODO: Escribe aquí los bucles para imprimir el mensaje original. */
 
     // ... (Tu código aquí) ...
-
-    printf("\n");
+    k=0;
+    for(i=0; i<ren; i++){
+        for(j=0; j<col; j ++){
+            texto[k] = escitala[i][j];
+        k++;
+        } 
+}
+      texto[k]='\0';
+    printf("%s",texto);
 }
 
 // PREGUNTA: En la implementación se una matriz auxiliar de dimensiones ren × col para realizar la transposición. 
