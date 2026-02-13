@@ -104,13 +104,13 @@ void siguienteGeneracion() {
 }
 
 int main() {
-    inicializarMundo(); d
+    inicializarMundo();
     int iteraciones = 5; // O infinito while(1)
 
     for(int k=0; k<iteraciones; k++) {
         imprimirMundo();
         siguienteGeneracion();
-        sleep(3); // Pausa para ver la animación
+        sleep(2); // Pausa para ver la animación
     }
 
     return 0;
