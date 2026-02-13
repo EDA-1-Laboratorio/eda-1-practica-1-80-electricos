@@ -58,6 +58,14 @@ void crearMensaje() {
     // ... (Tu código aquí) ...
 
 
+    for(i = 0; i < ren; i++){
+    for(j = 0; j < col; j++){
+        escitala[i][j] = texto[k];
+        k++;
+    }
+}
+
+
     printf("El texto cifrado (leído de la tira) es:\n");
 
     // PASO 2: Leer la matriz para obtener el cifrado
@@ -67,7 +75,13 @@ void crearMensaje() {
        Tip: Ahora el bucle externo debe controlar las columnas y el interno los renglones. */
 
     // ... (Tu código aquí) ...
-    
+
+    for(i=0; i<ren; i++){
+        for(j=0; j<col; j ++){
+            printf("%c",escitala[i][j]);
+        }
+        printf("\n");
+    }
     printf("\n");
 }
 
