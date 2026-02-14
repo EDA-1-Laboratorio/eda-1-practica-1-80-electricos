@@ -1,129 +1,72 @@
 #include <stdio.h>
-#include <string.h>
+#define MAX 20
 
-// Prototipos de funciones
-void crearMensaje();
-void descifrarMensaje();
+void generarEspiral(int n, int matriz[MAX][MAX]) {
+    int valor = 1;
+    int top = 0, bottom = n - 1;
+    int left = 0, right = n - 1;
 
+    while (valor <= n * n) {
+        // 1. Recorrer de izquierda a derecha (fila superior)
+        // TODO: Escribir el bucle for que llena desde 'left' hasta 'right'
+        // Tip: Al terminar, incrementar 'top'
+        for (int i=left; i<=right; i++){
+            matriz[top][i]=valor++;
+        }
+        top++;
+        
+        // 2. Recorrer de arriba a abajo (columna derecha)
+        // TODO: Escribir el bucle for que llena desde 'top' hasta 'bottom'
+        // Tip: Al terminar, decrementar 'right'
+        for (int i=top; i<=bottom; i++){
+            matriz[i][right] = valor++;
+        }
+        right--;
+
+        // 3. Recorrer de derecha a izquierda (fila inferior)
+        if (top <= bottom){
+            // TODO: Escribir el bucle for
+            // Tip: Al terminar, decrementar 'bottom'
+            for (int i = right; i >= left; i--){
+                matriz[bottom][i] = valor++;}
+                bottom--;
+        }
+
+        // 4. Recorrer de abajo a arriba (columna izquierda)
+        if (left <= right) {
+            // TODO: Escribir el bucle for
+            // Tip: Al terminar, incrementar 'left'
+            // Inicializar matriz en 0 (marca de celda no visitada)
+            for (int i = bottom; i >= top; i--){
+                matriz[i][left] = valor++;
+            }
+            left++;
+        }
+    }
+}
+void imprimirMatriz(int n, int matriz[MAX][MAX]) {
+    printf("\n--- Matriz Espiral de %dx%d ---\n", n, n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%4d ", matriz[i][j]); // %4d para alinear columnas
+        }
+        printf("\n");
+    }
+}
 int main() {
-    int opcion = 0;
-    
-    while (1) {
-        printf("\n\t** ESCÍTALA ESPARTANA **\n");
-        printf("1) Crear mensaje cifrado (Cifrar).\n");
-        printf("2) Descifrar mensaje.\n");
-        printf("3) Salir.\n");
-        printf("Seleccione una opción: ");
-        scanf("%d", &opcion);
+    int n;
+    int matriz[MAX][MAX];
 
-        switch(opcion) {
-            case 1:
-                crearMensaje();
-                break;
-            case 2:
-                descifrarMensaje();
-                break;
-            case 3:
-                printf("Saliendo del programa...\n");
-                return 0;
-            default:
-                printf("Opción no válida. Intente de nuevo.\n");
-        }
+    printf("Ingrese el tamaño N de la matriz (max %d): ", MAX);
+    scanf("%d", &n);
+
+    if (n > MAX) {
+        printf("Error: El tamaño excede el máximo permitido.\n");
+        return 1;
     }
+
+    generarEspiral(n, matriz);
+    imprimirMatriz(n, matriz);
+
     return 0;
-}
-
-void crearMensaje() {
-    int ren, col, i, j, k = 0;
-
-    printf("\n--- CIFRADO ---\n");
-    printf("Ingresar el tamaño de la escítala (Renglones): ");
-    scanf("%d", &ren);
-    printf("Ingresar el tamaño de la escítala (Columnas/Caras): ");
-    scanf("%d", &col);
-
-    char escitala[ren][col];
-    char texto[ren * col]; // Arreglo lineal para el texto original
-
-    printf("Escriba el texto a cifrar (sin espacios): ");
-    scanf("%s", texto);
-
-    // PASO 1: Llenar la matriz con el texto original
-    // La escítala se escribe a lo largo de la vara (fila por fila en la matriz lógica)
-    
-    /* TODO: Escribe aquí los bucles anidados para llenar 'escitala[i][j]' 
-       usando los caracteres de 'texto'.
-       Tip: Necesitas recorrer renglones y luego columnas. */
-       
-    // ... (Tu código aquí) ...
-    for(i = 0; i < ren; i++){
-        for(j = 0; j < col; j++){
-            escitala[i][j] = texto[k++];
-        }
-    }
-
-
-    printf("El texto cifrado (leído de la tira) es:\n");
-
-    // PASO 2: Leer la matriz para obtener el cifrado
-    // Al desenrollar la tira, leemos verticalmente (columna por columna)
-    
-    /* TODO: Escribe aquí los bucles para imprimir el mensaje cifrado.
-       Tip: Ahora el bucle externo debe controlar las columnas y el interno los renglones. */
-
-    // ... (Tu código aquí) ...
-    for(j = 0; j < col; j++){
-        for(i = 0; i < ren; i++){
-            printf("%c", escitala[i][j]);
-        }
-    }
-    
-    printf("\n");
-}
-
-void descifrarMensaje() {
-    int ren, col, i, j, k = 0;
-
-    printf("\n--- DESCIFRADO ---\n");
-    printf("Ingresar el tamaño de la escítala (Renglones original): ");
-    scanf("%d", &ren);
-    printf("Ingresar el tamaño de la escítala (Columnas original): ");
-    scanf("%d", &col);
-
-    char escitala[ren][col];
-    char texto[ren * col];
-
-    printf("Escriba el texto cifrado: ");
-    scanf("%s", texto);
-
-    // PASO 1: Reconstruir la matriz desde la tira cifrada
-    // Recuerda: El texto cifrado viene en orden de columnas (vertical),
-    // por lo tanto, debemos llenarlo en ese mismo orden.
-
-    /* TODO: Escribe aquí los bucles para llenar la matriz 'escitala'.
-       Tip: El orden de los bucles 'for' es inverso al llenado del cifrado normal. 
-       Debes llenar columna por columna usando el 'texto' cifrado. */
-
-    // ... (Tu código aquí) ...
-    for(j = 0; j < col; j++){
-        for(i = 0; i < ren; i++){
-            escitala[i][j] = texto[k++];
-        }
-    }
-
-    printf("El texto descifrado es:\n");
-
-    // PASO 2: Leer el mensaje original
-    // Una vez reconstruida la matriz, leemos fila por fila normalmente.
-
-    /* TODO: Escribe aquí los bucles para imprimir el mensaje original. */
-
-    // ... (Tu código aquí) ...
-    for(i = 0; i < ren; i++){
-        for(j = 0; j < col; j++){
-            printf("%c", escitala[i][j]);
-        }
-    }
-
-    printf("\n");
 }
