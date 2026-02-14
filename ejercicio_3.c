@@ -27,7 +27,7 @@ void inicializarMundo() {
 void imprimirMundo() {
     // Limpia la consola
     // system("clear"); // O system("cls") en Windows
-    
+    system("clear");
     printf("\nEstado Actual:\n");
     for (int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -51,7 +51,19 @@ int contarVecinos(int f, int c) {
     //       ... si no es la propia celda (f,c) y está viva, vecinos++ ...
     //    }
     // }
-    
+    for(int i=f-1;i<=f+1;i++){
+        for(int j=c-1;j<=c+1;j++){
+            //limites
+            if(i>=0 && i<FILAS && j>=0 && j<COLS){
+                //no contar la celda (f,c)
+                if(!(i==f && j==c)){
+                    if(mundo[i][j]==1){//condicion para si la celda vive
+                        vecinos++;
+                    }
+                }
+            }
+        }
+    }
     return vecinos;
 }
 
@@ -74,7 +86,10 @@ void siguienteGeneracion() {
 
             } else {
                 // REGLA 4: Reproducción (exactamente 3 vecinos) -> Nace
-                
+                if(vecinos==3)
+                    siguiente_mundo[i][j]=1;
+                else
+                    siguiente_mundo[i][j]=0;
                 // TODO: Completar la lógica para células muertas
             }
         }
@@ -95,10 +110,15 @@ int main() {
     for(int k=0; k<iteraciones; k++) {
         imprimirMundo();
         siguienteGeneracion();
-        // sleep(1); // Pausa para ver la animación
+        sleep(2); // Pausa para ver la animación
     }
 
     return 0;
 }
 
 // PREGUNTA: ¿Por qué es obligatoria la matriz siguiente_mundo? ¿Qué pasaría si actualizamos directamente sobre mundo?
+/*
+Esa matriz es obligatoria por que el juego de la vida requiere que todas las celdas se actualicen simultáneamente, el nuevo estado de cada celda depende del estado actual de sus vecinos en el tiempo (t), no
+de los cambios que ya se hayan hecho en otras celdas en el mismo turno. Si se actualiza directamente sobre el mundo, se mezclarian la generacion actual y la siguiente, lo que haria que el resultado dependa del
+orden en que se recorren las celdas, rompiendo las reglas del juego y haciendo que se comporte de manera extraña
+*/
