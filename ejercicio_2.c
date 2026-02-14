@@ -71,3 +71,8 @@ int main() {
     return 0;
 }
 // PREGUNTA: ¿Qué sucede si se omite la verificación if (top <= bottom) -linea 21- dentro del bucle?
+// Si se quita la verificación if(top<=bottom), el programa puede intentar recorrer una fila
+// que ya no debería llenarse, porque los límites de la matriz ya se cruzaron. Esto pasa sobre todo
+// cuando n es impar.
+// Como consecuencia, se pueden sobrescribir números o crear desorden al espiral. Esa consición 
+// sirve justamente para evitar que se modifiquen posiciones que ya estaban llenas.
