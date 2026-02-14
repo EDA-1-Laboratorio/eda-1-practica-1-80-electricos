@@ -1,46 +1,49 @@
 #include <stdio.h>
-
-// Definimos un tamaño máximo para facilitar la gestión de memoria en esta práctica
 #define MAX 20
 
 void generarEspiral(int n, int matriz[MAX][MAX]) {
+    int valor = 1;
+    int top = 0, bottom = n - 1;
+    int left = 0, right = n - 1;
 
-    // Inicializar matriz en 0 (marca de celda no visitada)
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            matriz[i][j] = 0;
+    while (valor <= n * n) {
+        // 1. Recorrer de izquierda a derecha (fila superior)
+        // TODO: Escribir el bucle for que llena desde 'left' hasta 'right'
+        // Tip: Al terminar, incrementar 'top'
+        for (int i=left; i<=right; i++){
+            matriz[top][i]=valor++;
+        }
+        top++;
+        
+        // 2. Recorrer de arriba a abajo (columna derecha)
+        // TODO: Escribir el bucle for que llena desde 'top' hasta 'bottom'
+        // Tip: Al terminar, decrementar 'right'
+        for (int i=top; i<=bottom; i++){
+            matriz[i][right] = valor++;
+        }
+        right--;
 
-    // Direcciones: Derecha → Abajo → Izquierda → Arriba
-    int dx[] = {0, 1, 0, -1};
-    int dy[] = {1, 0, -1, 0};
-
-    int direccion = 0; // empezamos hacia la derecha
-    int fila = 0;
-    int col = 0;
-
-    for (int valor = 1; valor <= n * n; valor++) {
-
-        matriz[fila][col] = valor;
-
-        int nuevaFila = fila + dx[direccion];
-        int nuevaCol = col + dy[direccion];
-
-        // Detectar choque con borde o celda ya visitada
-        if (nuevaFila < 0 || nuevaFila >= n ||
-            nuevaCol < 0 || nuevaCol >= n ||
-            matriz[nuevaFila][nuevaCol] != 0) {
-
-            direccion = (direccion + 1) % 4;
-
-            nuevaFila = fila + dx[direccion];
-            nuevaCol = col + dy[direccion];
+        // 3. Recorrer de derecha a izquierda (fila inferior)
+        if (top <= bottom){
+            // TODO: Escribir el bucle for
+            // Tip: Al terminar, decrementar 'bottom'
+            for (int i = right; i >= left; i--){
+                matriz[bottom][i] = valor++;}
+                bottom--;
         }
 
-        fila = nuevaFila;
-        col = nuevaCol;
+        // 4. Recorrer de abajo a arriba (columna izquierda)
+        if (left <= right) {
+            // TODO: Escribir el bucle for
+            // Tip: Al terminar, incrementar 'left'
+            // Inicializar matriz en 0 (marca de celda no visitada)
+            for (int i = bottom; i >= top; i--){
+                matriz[i][left] = valor++;
+            }
+            left++;
+        }
     }
 }
-
 void imprimirMatriz(int n, int matriz[MAX][MAX]) {
     printf("\n--- Matriz Espiral de %dx%d ---\n", n, n);
     for (int i = 0; i < n; i++) {
@@ -50,7 +53,6 @@ void imprimirMatriz(int n, int matriz[MAX][MAX]) {
         printf("\n");
     }
 }
-
 int main() {
     int n;
     int matriz[MAX][MAX];
